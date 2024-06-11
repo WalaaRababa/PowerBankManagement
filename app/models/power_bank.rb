@@ -1,5 +1,6 @@
 class PowerBank < ApplicationRecord
-  belongs_to :station
-  belongs_to :warehouse
-  belongs_to :user
+  belongs_to :station,optional: true 
+  belongs_to :warehouse,optional:true
+  belongs_to :user,optional:true
+  validate :status,presence: true
 end
