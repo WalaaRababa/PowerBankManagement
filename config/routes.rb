@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 resources :users, only: [:create, :index, :show, :update, :destroy]
 resources :locations, only: [:create, :index, :show, :update, :destroy]
 resources :warehouses, only: [:create, :index, :show, :update, :destroy]
+resources :stations, only: [:create, :index, :show, :update, :destroy]
+resources :power_banks, only: [:create, :index, :show, :update, :destroy]
 
 post 'login', to: 'sessions#create'
 

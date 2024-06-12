@@ -23,7 +23,7 @@ location=Location.create([
   { name: 'Location 1' },
 { name: 'Location 2' },
 { name: 'Location 3' }])
-warehouses = Warehouse.create!([
+warehouses = Warehouse.create([
   { name: 'Downtown Warehouse' },
   { name: 'Airport Warehouse' },
   { name: 'Main Warehouse' },
@@ -31,5 +31,18 @@ warehouses = Warehouse.create!([
   { name: 'Primary Warehouse' },
   { name: 'Distribution Warehouse' }
 ])
-
+stations = Station.create([
+  { status: 'Online', location_id: 1, warehouse_id: 1 },
+  { status: 'Offline', location_id: 2, warehouse_id: 2 },
+  { status: 'Offline', location_id: 3, warehouse_id: 2 },
+  { status: 'Online', location_id: 4, warehouse_id: 3 },
+  { status: 'Online', location_id: 1, warehouse_id: 1 }
+])
+power_banks = PowerBank.create([
+  { status: 'Available', station_id: 1 },
+  { status: 'In Use', station_id: 2, user_id: 3 },
+  { status: 'Charging', warehouse_id: 1 },
+  { status: 'Maintenance', warehouse_id: 2 },
+  { status: 'Available', station_id: 3 }
+])
 
