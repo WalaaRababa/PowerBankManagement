@@ -1,4 +1,4 @@
 class Location < ApplicationRecord
     has_many:stations
-    validate :name,presence:true
+    validates :name,presence:true
 end
