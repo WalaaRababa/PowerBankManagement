@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-
+  before_action :authorize_request
+  before_action :authorize_admin, only: [:create, :index]
     def create
         user=User.new(user_params)
         if user.save

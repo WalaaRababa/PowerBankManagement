@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :authorize_request, only: [:create]
+
   def create
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
@@ -7,7 +9,7 @@ class SessionsController < ApplicationController
         user_id: user.id,
         exp: expiration_time 
       }
-      token = JWT.encode(payload, ENV['APP_SECRET_KEY'])
+      token = JWT.encode(payload, ENV['SECRET_KEY_BASE'])
       render json: { message: 'Logged in successfully', token: token }, status: :ok
     else
       render json: { error: 'Invalid email or password' }, status: :unauthorized
