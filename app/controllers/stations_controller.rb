@@ -1,4 +1,6 @@
 class StationsController < ApplicationController
+  before_action :authorize_request
+  before_action :authorize_admin, only: [:create, :destroy]
     def create
         station=Station.new(station_params)
         if station.save

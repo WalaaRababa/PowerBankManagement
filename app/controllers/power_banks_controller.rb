@@ -1,4 +1,6 @@
 class PowerBanksController < ApplicationController
+  before_action :authorize_request
+  before_action :authorize_admin, only: [:create, :destroy]
     def create
         power_bank=PowerBank.new(powerBank_params)
         if power_bank.save

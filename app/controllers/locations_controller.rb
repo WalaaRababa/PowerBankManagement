@@ -1,4 +1,6 @@
 class LocationsController < ApplicationController
+  before_action :authorize_request
+  before_action :authorize_admin, only: [:create, :destroy]
     def create
         location=Location.new(location_params)
         if location.save
