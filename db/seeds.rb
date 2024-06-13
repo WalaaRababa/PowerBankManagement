@@ -17,7 +17,12 @@ name: 'Mark Doe',
 email: 'mark@gmail.com',
 password: '12345678',
 role:'user'
-}]
+},{
+  name: 'Ali Ahmad',
+  email: 'ali@gmail.com',
+  password: '12345678',
+  role:'user'
+  }]
 )
 location=Location.create([
   { name: 'Location 1' },

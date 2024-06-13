@@ -9,10 +9,16 @@ class UsersController < ApplicationController
             render json:user.errors,status:500
         end
     end
-    def index
-        users = User.all
+    # def index
+    #     users = User.all
+    #     render json: users
+    #   end
+      #get all user have role is user
+      def index
+        users = User.where(role: 'user')
         render json: users
       end
+      
       def show
         user = User.find(params[:id])
         render json: user
@@ -37,6 +43,6 @@ class UsersController < ApplicationController
     end
       private 
     def user_params
-        params.require(:user).permit(:name, :email, :password, :role)
+        params.require(:user).permit(:name, :email, :password , :role)
      end
 end

@@ -2,7 +2,7 @@ class PowerBanksController < ApplicationController
   before_action :authorize_request
   before_action :authorize_admin, only: [:create, :destroy]
     def create
-        power_bank=PowerBank.new(powerBank_params)
+        power_bank=PowerBank.new(power_bank_params)
         if power_bank.save
          render json:power_bank,status:201
         else
@@ -20,7 +20,7 @@ class PowerBanksController < ApplicationController
       def update
         power_bank=PowerBank.find(params[:id])
         if power_bank
-            power_bank.update(PowerBank_params)
+            power_bank.update(power_bank_params)
             render json: power_bank,status:200
             else
            render json:{error:'Unable to update PowerBank'},status:400
@@ -36,7 +36,7 @@ class PowerBanksController < ApplicationController
         end
     end
       private 
-    def PowerBank_params
-        params.require(:PowerBank).permit(:status, :station_id, :warehouse_id, :user_id)
+    def power_bank_params
+      params.require(:power_bank).permit(:status, :station_id, :warehouse_id, :user_id)
      end
 end
