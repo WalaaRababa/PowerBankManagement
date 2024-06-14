@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import RootLayout from "./layout/RootLayout";
 import Dashboard from "./pages/Dashboard";
 import User from "./pages/User";
-import Warehouse from "./pages/Warhouse";
+import Stations from "./pages/Stations";
 import CreatePowerBank from "./components/CreatePowerBank";
 export const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "", element: <Dashboard /> },
       { path: "user", element: <User /> },
-      { path: "warehouse", element: <Warehouse /> },
+      { path: "stations", element: <Stations /> },
       { path: "create", element: <CreatePowerBank /> },
 
     ],
