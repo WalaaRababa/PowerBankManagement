@@ -10,8 +10,22 @@ class PowerBanksController < ApplicationController
         end
     end
     def index
-        power_bank = PowerBank.includes(:user,:warehouse,:station).all
-        render json: power_bank,include: [:user,:warehouse,:station],status:200
+        #power_bank = PowerBank.includes(:user,:warehouse,:station).all
+        #render json: power_bank,include: [:user,:warehouse,:station],status:200
+        page=params[:page].to_i
+        per_page = 5
+        power_banks = PowerBank.includes(:user, :warehouse, :station)
+                               .offset(page * per_page)
+                               .limit(per_page)
+        
+        total_pages = (PowerBank.count / per_page.to_f).ceil
+      
+        render json: {power_banks:power_banks.as_json(include: { 
+          user: { only: [:id, :name] }, 
+          warehouse: { only: [:id, :name] }, 
+          station: { only: [:id, :name] } 
+        }), total_pages: total_pages, current_page: page }
+
       end
       def show
         power_bank = PowerBank.find(params[:id])

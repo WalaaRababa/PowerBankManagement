@@ -42,11 +42,12 @@ stations = Station.create([
   { status: 'Online', location_id: nil, warehouse_id: 2 },
   { status: 'Online', location_id: nil, warehouse_id: 3 }
 ])
+
 power_banks = PowerBank.create([
-  { id: 1, status: 'Available', station_id: 1, warehouse_id: nil, user_id: nil },
-  { id: 2, status: 'In Use', station_id: 2, warehouse_id: nil, user_id: 2 },
-  { id: 3, status: 'Available', station_id: nil, warehouse_id: 1, user_id: nil },
-  { id: 4, status: 'Available', station_id: 3, warehouse_id: nil, user_id: nil },
-  { id: 5, status: 'In Use', station_id: nil, warehouse_id: 2, user_id: 3 }
+  { id:6 ,status: 'Available', station_id: 3 ,warehouse_id: nil, user_id: nil },
+  { id:7 ,status: 'In Use', station_id: 4, warehouse_id: nil, user_id: 3 },
+  { id: 8, status: 'Available', station_id: nil, warehouse_id: 4, user_id: nil },
+  { id: 9, status: 'Available', station_id: nil, warehouse_id: 5, user_id: nil },
+  { id:10, status: 'In Use', station_id: nil, warehouse_id: 6, user_id: 3 }
 ])
 

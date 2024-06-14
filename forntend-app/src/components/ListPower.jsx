@@ -7,17 +7,26 @@ const ListPower = () => {
   const { token } = useContext(AuthContext);
   const [listOfPowerBank, setListOfPowerBank] = useState(null);
   const [message, setMessage] = useState("");
-  const navigate=useNavigate()
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const array = [...Array(totalPages).keys()];
+
+  const navigate = useNavigate();
   const getData = async () => {
     try {
-      const result = await axios.get("http://localhost:3000/power_banks", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const result = await axios.get(
+        `http://localhost:3000/power_banks?page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(result);
-      setListOfPowerBank(result.data);
+      setListOfPowerBank(result.data.power_banks);
+      setTotalPages(result.data.total_pages);
     } catch (error) {
+      console.log(error);
       if (error.response.data) {
         return setMessage(error.response.data.message);
       }
@@ -28,7 +37,7 @@ const ListPower = () => {
   //===============================================================
   useEffect(() => {
     getData();
-  }, []);
+  }, [page]);
 
   return (
     <section className=" px-4">
@@ -40,7 +49,7 @@ const ListPower = () => {
             </h2>
 
             <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
-              {listOfPowerBank?.length} power_banks
+              {listOfPowerBank?.length*totalPages} power_banks
             </span>
           </div>
 
@@ -50,10 +59,12 @@ const ListPower = () => {
         </div>
 
         <div className="flex items-center mt-4 gap-x-3">
-          <button  onClick={() => {
-                navigate("create");
-                    }}
-                    className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600 bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+          <button
+            onClick={() => {
+              navigate("create");
+            }}
+            className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600 bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -181,23 +192,12 @@ const ListPower = () => {
                           </td>
                           <td className="px-12 py-4 text-sm font-small text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 dark:bg-gray-800">
-                              {item.status == "In Use" && (
+                              {item.status == "In Use" ? (
                                 <p className="px-3 py-1 text-xs text-indigo-500 rounded-full dark:bg-gray-800 bg-indigo-100/60">
                                   {item.status}
                                 </p>
-                              )}
-                              {item.status == "Available" && (
+                              ) : (
                                 <p className="px-3 py-1 text-xs text-emerald-500 rounded-full dark:bg-gray-800 bg-emerald-100/60">
-                                  {item.status}
-                                </p>
-                              )}
-                              {item.status == "Maintenance" && (
-                                <p className="px-3 py-1 text-xs text-pink-500  rounded-full dark:bg-gray-800  bg-pink-100/60">
-                                  {item.status}
-                                </p>
-                              )}
-                              {item.status == "Charging" && (
-                                <p className="px-3 py-1 text-xs text-blue-500 rounded-full dark:bg-gray-800 bg-blue-100/60">
                                   {item.status}
                                 </p>
                               )}
@@ -207,14 +207,12 @@ const ListPower = () => {
                             {item.user_id ? item.user.name : "no user use"}
                           </td>
                           <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                            {item.station_id
-                              ? item.station.id
-                              : "no station use"}
+                            {item.station_id ? item.station.id : "not located"}
                           </td>
                           <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                             {item.warehouse_id
                               ? item.warehouse.name
-                              : "no warehouse use"}
+                              : "not located "}
                           </td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
                             <div className="flex items-center gap-x-6">
@@ -255,64 +253,28 @@ const ListPower = () => {
       </div>
 
       <div className="flex items-center justify-between mt-6">
-        <a
-          href="#"
-          className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
-        >
+        <button className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
           <span>previous</span>
-        </a>
-
+        </button>
         <div className="items-center hidden lg:flex gap-x-3">
-          <a
-            href="#"
-            className="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60"
-          >
-            1
-          </a>
-          <a
-            href="#"
-            className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-          >
-            2
-          </a>
-          <a
-            href="#"
-            className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-          >
-            3
-          </a>
-          <a
-            href="#"
-            className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-          >
-            ...
-          </a>
-          <a
-            href="#"
-            className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-          >
-            12
-          </a>
-          <a
-            href="#"
-            className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-          >
-            13
-          </a>
-          <a
-            href="#"
-            className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-          >
-            14
-          </a>
+          {array?.map((item, i) => {
+            return (
+              <button
+                key={i}
+                onClick={() => {
+                  setPage(item);
+                }}
+                className="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60"
+              >
+                {item}
+              </button>
+            );
+          })}
         </div>
 
-        <a
-          href="#"
-          className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
-        >
+        <button className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
           <span>Next</span>
-        </a>
+        </button>
       </div>
       {message && <span className="text-red-500 text-lg">{message}</span>}
     </section>
