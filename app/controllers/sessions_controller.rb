@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
         exp: expiration_time 
       }
       token = JWT.encode(payload, ENV['SECRET_KEY_BASE'])
-      render json: { message: 'Logged in successfully', token: token }, status: :ok
+      render json: { message: 'Logged in successfully', token: token,role:user.role }, status: :ok
     else
       render json: { error: 'Invalid email or password' }, status: :unauthorized
     end

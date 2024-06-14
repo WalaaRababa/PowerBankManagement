@@ -6,6 +6,10 @@ import Dashboard from "./pages/Dashboard";
 import User from "./pages/User";
 import Stations from "./pages/Stations";
 import CreatePowerBank from "./components/CreatePowerBank";
+import UserLayout from "./layout/UserLayout";
+import UserDashboard from "./pages/UserPanel/UserDashboard";
+import PowerBankUser from "./pages/UserPanel/PowerBankUser";
+import Profile from "./pages/UserPanel/Profile";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,4 +26,14 @@ export const router = createBrowserRouter([
 
     ],
   },
+  {
+    path: "/user",
+    element: <UserLayout />,
+    children: [
+      {path:'',element:<UserDashboard/>},
+      { path:'powerbank',element:<PowerBankUser/>},
+      { path:'profile',element:<Profile/>}
+
+    ]
+  }
 ]);

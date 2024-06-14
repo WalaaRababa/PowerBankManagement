@@ -5,12 +5,19 @@ export const AuthContext=createContext(null)
 const AuthProvider=({children})=>
     {
 const [token , setToken ] = useState(localStorage.getItem('token')|| '')
+const [role , setRole ] = useState(localStorage.getItem('user')||'')
 const saveToken = (token) => {
     setToken(token);
     localStorage.setItem('token', token);
   };
+  const saveRole=(role)=>
+    {
+        setRole(role)
+        localStorage.setItem('role', role);
+
+    }
         return(
-            <AuthContext.Provider value={{token,saveToken}}>
+            <AuthContext.Provider value={{token,saveToken,saveRole,role}}>
                 {children}
             </AuthContext.Provider>
         )

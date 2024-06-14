@@ -7,23 +7,11 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-user = User.create([{
-  name: 'Admin',
-  email: 'admin@gmail.com',
-  password: '12345678',
-  role:'admin'
-},{
-name: 'Mark Doe',
-email: 'mark@gmail.com',
-password: '12345678',
-role:'user'
-},{
-  name: 'Ali Ahmad',
-  email: 'ali@gmail.com',
-  password: '12345678',
-  role:'user'
-  }]
-)
+user = User.create([
+{name: 'Admin',email: 'admin@gmail.com',password: '12345678',role:'admin'},
+{name: 'Mark Doe',email: 'mark@gmail.com',password: '12345678',role:'user'},
+{name: 'Ali Ahmad',email: 'ali@gmail.com',password: '12345678',role:'user'},
+{name: 'Jamal Ahmad',email: 'jamal@gmail.com', password: '12345678', role:'user'}])
 location=Location.create([
   { name: 'Location A1' },
 { name: 'Location B2' },
@@ -36,18 +24,28 @@ warehouses = Warehouse.create([
   { name: 'Distribution Warehouse' }
 ])
 stations = Station.create([
-  { status: 'Online', location_id: 1, warehouse_id: nil },
-  { status: 'Offline', location_id: nil, warehouse_id: 1 },
-  { status: 'Offline', location_id: 3, warehouse_id: nil },
-  { status: 'Online', location_id: nil, warehouse_id: 2 },
-  { status: 'Online', location_id: nil, warehouse_id: 3 }
+  { name: 'Downtown Station', status: 'Online', location_id: 1, warehouse_id: nil },
+  { name: 'Warehouse Central', status: 'Offline', location_id: nil, warehouse_id: 1 },
+  { name: 'Airport Station', status: 'Offline', location_id: 3, warehouse_id: nil },
+  { name: 'Northside Warehouse', status: 'Online', location_id: nil, warehouse_id: 2 },
+  { name: 'City Center Station', status: 'Online', location_id: nil, warehouse_id: 3 },
+  { name: 'Eastside Warehouse', status: 'Online', location_id: nil, warehouse_id: 4 }
 ])
 
+
 power_banks = PowerBank.create([
-  { id:6 ,status: 'Available', station_id: 3 ,warehouse_id: nil, user_id: nil },
-  { id:7 ,status: 'In Use', station_id: 4, warehouse_id: nil, user_id: 3 },
-  { id: 8, status: 'Available', station_id: nil, warehouse_id: 4, user_id: nil },
-  { id: 9, status: 'Available', station_id: nil, warehouse_id: 5, user_id: nil },
-  { id:10, status: 'In Use', station_id: nil, warehouse_id: 6, user_id: 3 }
+  { status: 'Available', station_id: 1, warehouse_id: nil, user_id: nil },
+  { status: 'In Use', station_id: 2, warehouse_id: nil, user_id: 2 },
+  { status: 'Available', station_id: nil, warehouse_id: 1, user_id: nil },
+  { status: 'Available', station_id: 3, warehouse_id: nil, user_id: nil },
+  { status: 'In Use', station_id: nil, warehouse_id: 2, user_id: 3 },
+  { status: 'Available', station_id: 3 ,warehouse_id: nil, user_id: nil },
+  { status: 'In Use', station_id: 4, warehouse_id: nil, user_id: 3 },
+  { status: 'Available', station_id: nil, warehouse_id: 4, user_id: nil },
+  { status: 'Available', station_id: nil, warehouse_id: 5, user_id: nil },
+  { status: 'In Use', station_id: nil, warehouse_id: 3, user_id: 3 },
+  { status: 'Available', station_id: 4 ,warehouse_id: nil, user_id: nil },
+  { status: 'In Use', station_id: 5, warehouse_id: nil, user_id: 4 },
+  { status: 'Available', station_id: 6, warehouse_id: nil, user_id: nil },
 ])
 

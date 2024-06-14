@@ -11,14 +11,15 @@ const Login = () => {
   } = useForm();
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const {saveToken}=useContext(AuthContext)
+  const {saveToken,saveRole}=useContext(AuthContext)
   const onSubmit = async (data) => {
     console.log(data);
     try {
       const response = await axios.post("http://localhost:3000/login", data);
       console.log(response);
       saveToken(response.data.token)
-      navigate("/home");
+      saveRole(response.data.role)
+      response.data.role=='admin'?navigate("/home"):navigate("/user");
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error)) {

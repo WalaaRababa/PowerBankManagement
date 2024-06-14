@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../AuthContext";
-import CreateUser from "../components/CreateUser";
+import moment from"moment";
 const Stations = () => {
   const { token } = useContext(AuthContext);
   const [listOfWarehouse, setListOfWarehouse] = useState(null);
@@ -32,14 +32,14 @@ const Stations = () => {
     <section className=" px-4">
       <div className="flex items-center gap-x-3">
         <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-       Station List
+          Station List
         </h2>
 
         <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
           {listOfWarehouse?.length} stations
         </span>
       </div>
-      <CreateUser token={token}/>
+      {/* <CreateUser token={token} /> */}
 
       <div className="flex flex-col mt-6 w-full">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -57,7 +57,7 @@ const Stations = () => {
                           type="checkbox"
                           className="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"
                         />
-                        <span>Serial .no</span>
+                        <span>#id </span>
                       </div>
                     </th>
                     <th
@@ -83,7 +83,7 @@ const Stations = () => {
                       className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
                       <button className="flex items-center gap-x-2">
-                        <span> Warehouse Name</span>
+                        <span> Station Name</span>
 
                         <svg
                           className="h-3"
@@ -109,72 +109,82 @@ const Stations = () => {
                         </svg>
                       </button>
                     </th>
-
-                
-
                     <th
                       scope="col"
                       className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
-Location Name                    </th>
-
+                      Location Name
+                    </th>
                     <th
                       scope="col"
                       className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
-Created_at                    </th>
-
-                  
+                      Warehouse Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                    >
+                      Created_at{" "}
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                {listOfWarehouse?.map((item)=>
-                {
-                    return(<>
-                      <tr>
-                    <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                      <div className="inline-flex items-center gap-x-3">
-                        <input
-                          type="checkbox"
-                          className="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"
-                        />
+                  {listOfWarehouse?.map((item) => {
+                    return (
+                      <>
+                        <tr>
+                          <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                            <div className="inline-flex items-center gap-x-3">
+                              <input
+                                type="checkbox"
+                                className="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"
+                              />
 
-                        <div className="flex items-center gap-x-2">
-                          
-                          <div>
-                            <h2 className="font-medium text-gray-800 dark:text-white">
-                              {item.id}
-                            </h2>
-                           
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                   
-                    <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap flex justify-between items-center">
-                    <div className="inline-flex items-start px-3 py-1 rounded-full gap-x-2 dark:bg-gray-800">
-   {item.status=='Online'?  <p className="px-3 py-1 text-xs text-emerald-500 rounded-full dark:bg-gray-800 bg-emerald-100/60">
-                                  {item.status}
-                                </p>:<p className="px-3 py-1 text-xs text-pink-500  rounded-full dark:bg-gray-800  bg-pink-100/60">
-                                  {item.status}
-                                </p>}
-                       
-                      </div>
-</td>
+                              <div className="flex items-center gap-x-2">
+                                <div>
+                                  <h2 className="font-medium text-gray-800 dark:text-white">
+                                    {item.id}
+                                  </h2>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
 
-                    <td className="px-12 py-4 text-sm font-small text-gray-700 whitespace-nowrap">
-                    {item.warehouse.name}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                    {item.location.name} 
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                    {item.created_at} 
-                    </td>
-                   
-                  </tr>
-                    </>)
-                })}
+                          <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap flex justify-between items-center">
+                            <div className="inline-flex items-start px-3 py-1 rounded-full gap-x-2 dark:bg-gray-800">
+                              {item.status == "Online" ? (
+                                <p className="px-3 py-1 text-xs text-emerald-500 rounded-full dark:bg-gray-800 bg-emerald-100/60">
+                                  {item.status}
+                                </p>
+                              ) : (
+                                <p className="px-3 py-1 text-xs text-pink-500  rounded-full dark:bg-gray-800  bg-pink-100/60">
+                                  {item.status}
+                                </p>
+                              )}
+                            </div>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                            {item.name}
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                            {item.location_id
+                              ? item.location.name
+                              : "not located"}
+                          </td>
+                          <td className="px-12 py-4 text-sm font-small text-gray-700 whitespace-nowrap">
+                            {item.warehouse_id
+                              ? item.warehouse.name
+                              : "not located"}
+                          </td>
+                        
+                          <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                          {moment(item.created_at).format('MMMM Do YYYY')}
+                          </td>
+                        </tr>
+                      </>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -184,7 +194,7 @@ Created_at                    </th>
 
       {message && <span className="text-red-500 text-lg">{message}</span>}
     </section>
-  )
-}
+  );
+};
 
-export default Stations
+export default Stations;

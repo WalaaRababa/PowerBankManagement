@@ -109,8 +109,6 @@ console.log(token);
                 <option value="" disabled selected hidden></option>
                 <option value="In Use">In Use</option>
                 <option value="Available">Available</option>
-                <option value="Maintenance">Maintenance</option>
-                <option value="Charging">Charging</option>
               </select>
               <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                 <svg
