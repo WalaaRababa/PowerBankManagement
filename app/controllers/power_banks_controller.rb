@@ -66,6 +66,24 @@ class PowerBanksController < ApplicationController
             render json: { error: 'No power banks assigned to you' }, status:400
           end
         end
+        def take_from_station
+          power_bank = PowerBank.find(params[:id])
+          if power_bank.status == 'Available' && power_bank.station.present?
+            power_bank.update(user_id: @current_user.id, status: 'In Use')
+            render json: power_bank, status:200
+          else
+            render json: { error: 'Cannot take power bank from station' }, status:400
+          end
+        end
+        def return_to_station
+          power_bank = PowerBank.find(params[:id])
+          if power_bank.present?
+            power_bank.update(user_id: nil, status: 'Available')
+            render json: power_bank, status:200
+          else
+            render json: { error: 'Cannot return power bank from station' }, status:400
+          end
+        end
       private 
     def power_bank_params
       params.require(:power_bank).permit(:status, :station_id, :warehouse_id, :user_id)

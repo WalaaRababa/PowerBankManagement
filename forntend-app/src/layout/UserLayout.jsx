@@ -16,30 +16,10 @@ const UserLayout = () => {
           <div className="sm:block">
             <div className="border-b border-gray-200">
               <nav className="-mb-px flex gap-6" aria-label="Tabs">
-                <button className="inline-flex shrink-0 items-center gap-2 border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-sky-600">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                    />
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                    />
-                  </svg>
-                  Locations
-                </button>
-
-                <button className="inline-flex shrink-0 items-center gap-2 border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-sky-600">
+                <button onClick={() => {
+                      navigate('');
+                    }}
+                className="inline-flex shrink-0 items-center gap-2 border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-sky-600">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -97,6 +77,31 @@ const UserLayout = () => {
                   </svg>
                   My Profile
                 </button>
+                <button onClick={() => {
+                localStorage.removeItem("token")
+                navigate('/')
+              }}
+                 className="inline-flex shrink-0 items-center gap-2 border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-sky-600">
+                <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="size-5 opacity-75"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+          />
+        </svg>
+
+
+
+                  Logout
+                </button>
+
               </nav>
             </div>
           </div>

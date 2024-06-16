@@ -11,6 +11,8 @@ resources :stations, only: [:create, :index, :show, :update, :destroy]
 resources :power_banks, only: [:create, :index, :show, :update, :destroy]
 get 'available_power_bank', to: 'power_banks#available_power_bank'
 get 'my_power_banks', to: 'power_banks#my_power_banks'
+patch 'take_from_station/:id', to:'power_banks#take_from_station'
+patch 'return_to_station/:id', to:'power_banks#return_to_station'
 
 post 'login', to: 'sessions#create'
 

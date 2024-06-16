@@ -4,8 +4,22 @@ import { AuthContext } from "../../AuthContext";
 const PowerBankUser = () => {
     const [list , setList ] = useState(null)
     const { token } = useContext(AuthContext);
+    const [show , setShow ] = useState()
     const [message, setMessage] = useState("");
-const orderPowerBank=()=>{}
+const orderPowerBank=async()=>{
+  try {
+    const result = await axios.patch(`http://localhost:3000/take_from_station/${show}`,{} ,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(result);
+    setShow()
+  } catch (error) {
+      console.log(error);
+  
+  }
+};
     const getData = async () => {
         try {
           const result = await axios.get("http://localhost:3000/available_power_bank", {
@@ -25,7 +39,7 @@ const orderPowerBank=()=>{}
       };
     useEffect(() => {
          getData()   
-    },[])
+    },[show])
     
   return (
     <section className=" px-4">
@@ -150,7 +164,8 @@ const orderPowerBank=()=>{}
                         </td>
                 
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
-                        <button  className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+                        <button  onClick={()=>{setShow(item.id)}}
+                        className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
           >
           Use
           </button>
@@ -168,7 +183,27 @@ const orderPowerBank=()=>{}
       </div>
     </div>
 
-   
+{show&&    <div className="bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+  <div className="rounded-lg bg-white p-8 shadow-2xl">
+  <h2 className="text-lg font-bold">Are you sure you want to proceed with using this power bank?</h2>
+
+  <p className="mt-2 text-sm text-gray-500">
+  Are you certain you want to proceed?  </p>
+
+  <div className="mt-4 flex gap-2">
+    <button onClick={orderPowerBank}
+    type="button" className="rounded bg-green-50 px-4 py-2 text-sm font-medium text-green-600">
+      Yes, I'm sure
+    </button>
+
+    <button onClick={()=>setShow()}
+    type="button" className="rounded bg-gray-50 px-4 py-2 text-sm font-medium text-gray-600">
+      No, go back
+    </button>
+  </div>
+</div>
+</div> 
+}
     {message && <span className="text-red-500 text-lg">{message}</span>}
   </section>
   )
