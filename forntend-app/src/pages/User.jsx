@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../AuthContext";
 import CreateUser from "../components/CreateUser";
+import moment from "moment";
 const User = () => {
     const { token } = useContext(AuthContext);
     const [listOfUser, setListOfUser] = useState(null);
@@ -167,7 +168,7 @@ Created_at                    </th>
                     {item.email} 
                     </td>
                     <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                    {item.created_at} 
+                    {moment(item.created_at).format("MMMM Do YYYY")}
                     </td>
                    
                   </tr>

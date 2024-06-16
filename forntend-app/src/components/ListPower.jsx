@@ -9,6 +9,7 @@ const ListPower = () => {
   const [message, setMessage] = useState("");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [count , setCount ] = useState(0)
   const array = [...Array(totalPages).keys()];
 
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const ListPower = () => {
       console.log(result);
       setListOfPowerBank(result.data.power_banks);
       setTotalPages(result.data.total_pages);
+      setCount(result.data.total)
     } catch (error) {
       console.log(error);
       if (error.response.data) {
@@ -49,7 +51,7 @@ const ListPower = () => {
             </h2>
 
             <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
-              {listOfPowerBank?.length} power_banks
+              {count} power_banks
             </span>
           </div>
 
